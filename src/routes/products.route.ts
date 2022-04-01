@@ -47,20 +47,25 @@ router.delete(
 
 //GET & PAGINATION & FILTER
 router.get("/", async (req: Request, res: Response, next: NextFunction) => {
-  let { page = 1, limit = 10, plainColor, pattern, figure, size } = req.query;
+  let { page = 1, limit, plainColor, pattern, figure, size } = req.query;
 
-  try {
-    const product = await GetPageFilterProduct(
-      +page,
-      +limit as 10 | 20 | 50,
-      plainColor as string,
-      pattern as string,
-      figure as string,
-      size as Size
-    );
-    res.json(product);
-  } catch (error) {
-    next(error);
+  if (Number(limit) == 10 || Number(limit) == 20 || Number(limit) == 50) {
+    try {
+      let limits = limit ? limit : 10;
+      const product = await GetPageFilterProduct(
+        +page,
+        +limits,
+        plainColor as string,
+        pattern as string,
+        figure as string,
+        size as Size
+      );
+      res.json(product);
+    } catch (error) {
+      next(error);
+    }
+  } else {
+    res.status(400).json("kuy");
   }
 });
 
