@@ -1,3 +1,4 @@
+import { GetPageFilterProduct } from "./../controllers/products.controller";
 import { Gender, Product, Size } from "@prisma/client";
 
 export interface ProductsType {
@@ -14,4 +15,20 @@ export type ProductTypeWithNoId = {
   amount: number;
   size: Size;
   gender: Gender;
+};
+
+export type CategoryType = {
+  plainColor: string;
+  pattern: string;
+  figure: string;
+  size: Size;
+};
+
+export type getRequestType = {
+  page: number;
+  limit: 10 | 20 | 50;
+  plainColor: string;
+  pattern: string;
+  figure: string;
+  size: Size;
 };

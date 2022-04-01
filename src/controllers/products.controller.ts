@@ -1,25 +1,24 @@
+import { Size } from "@prisma/client";
 import prisma from "../../prisma/prisma";
-import { ProductsType } from "../models/products.model";
+import { CategoryType, ProductsType } from "../models/products.model";
 
-export const createProduct = async (
-  productPayload: ProductsType
-): Promise<ProductsType> => {
+export const createProduct = async (productPayload: ProductsType) => {
   const { productName, product } = productPayload;
-  await prisma.products.create({
+  const create = await prisma.products.create({
     data: {
       productName: productName,
       product: { createMany: { data: product } },
     },
   });
-  return productPayload;
+  return create;
 };
 
 export const updateProduct = async (
   productUpdatePayload: ProductsType,
   productsId: number
-): Promise<ProductsType> => {
+) => {
   const { id, productName, product } = productUpdatePayload;
-  await prisma.products.update({
+  const update = await prisma.products.update({
     where: { id: productsId },
     data: {
       id: id,
@@ -27,7 +26,7 @@ export const updateProduct = async (
       product: { createMany: { data: product } },
     },
   });
-  return productUpdatePayload;
+  return update;
 };
 
 export const deleteProduct = async (productsId: number): Promise<string> => {
@@ -35,4 +34,33 @@ export const deleteProduct = async (productsId: number): Promise<string> => {
     where: { id: productsId },
   });
   return "deleted";
+};
+
+export const GetPageFilterProduct = async (
+  page: number,
+  limit: number,
+  plainColor: string,
+  pattern: string,
+  figure: string,
+  size: Size
+) => {
+  const fetchData = await prisma.products.findMany({
+    select: {
+      id: true,
+      productName: true,
+      product: {
+        where: {
+          AND: [
+            { plainColor: plainColor },
+            { pattern: pattern },
+            { figure: figure },
+            { size: size },
+          ],
+        },
+      },
+    },
+    take: limit,
+    skip: (page - 1) * limit,
+  });
+  return fetchData;
 };

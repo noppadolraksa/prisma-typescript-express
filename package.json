@@ -6,7 +6,10 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "dev": "nodemon server.ts",
-        "build": "tsc --project ./"
+        "build": "tsc --project ./",
+        "prismaGenerate": "npx prisma generate",
+        "prismaDev": "npx prisma migrate dev",
+        "prismaReset": "npx prisma migrate reset"
     },
     "prisma": {
         "schema": "prisma/schema.prisma",
@@ -20,8 +23,6 @@
         "cors": "^2.8.5",
         "dotenv": "^16.0.0",
         "express": "^4.17.3",
-        "express-joi-validation": "^5.0.1",
-        "express-validator": "^6.14.0",
         "joi": "^17.6.0",
         "prisma": "^3.11.1"
     },

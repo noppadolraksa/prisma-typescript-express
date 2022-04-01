@@ -16,10 +16,10 @@ import { OrdersType } from "../models/orders.model";
 
 export const updateorder = async (
   orderUpdatePayload: OrdersType,
-  ordersId: string
-): Promise<any> => {
+  ordersId: number
+) => {
   const { id, address, createdAt, order, status } = orderUpdatePayload;
-  await prisma.orders.update({
+  const res = await prisma.orders.update({
     where: { id: ordersId },
     data: {
       id: id,
@@ -29,10 +29,12 @@ export const updateorder = async (
       order: { createMany: { data: order } },
     },
   });
+  return res;
 };
 
-export const deleteOrder = async (ordersId: string): Promise<any> => {
-  await prisma.orders.delete({
+export const deleteOrder = async (ordersId: number) => {
+  const res = await prisma.orders.delete({
     where: { id: ordersId },
   });
+  return res;
 };
