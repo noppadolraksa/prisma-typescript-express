@@ -65,7 +65,7 @@ router.get("/", async (req: Request, res: Response, next: NextFunction) => {
       next(error);
     }
   } else {
-    res.status(400).json("kuy");
+    res.status(400).json("invalid limit");
   }
 });
 
