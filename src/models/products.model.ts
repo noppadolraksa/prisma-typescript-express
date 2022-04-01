@@ -1,4 +1,3 @@
-import { GetPageFilterProduct } from "./../controllers/products.controller";
 import { Gender, Product, Size } from "@prisma/client";
 
 export interface ProductsType {

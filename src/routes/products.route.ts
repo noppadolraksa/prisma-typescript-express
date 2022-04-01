@@ -6,8 +6,6 @@ import {
   GetPageFilterProduct,
   updateProduct,
 } from "../controllers/products.controller";
-import { query, validationResult } from "express-validator";
-import { getRequestType } from "../models/products.model";
 
 const router = Router();
 

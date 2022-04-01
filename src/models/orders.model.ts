@@ -1,4 +1,4 @@
-import { Order, OrderStatus, Product } from "@prisma/client";
+import { Order, OrderStatus } from "@prisma/client";
 
 export type OrdersType = {
   id: number;
